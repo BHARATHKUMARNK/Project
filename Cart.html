@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛒 My Cart - Quick Bazaar</title>
+    <link rel="stylesheet" href="cartstyle.css">
+</head>
+<body>
+
+    <header>
+        <h1>Quick Bazaar</h1>
+        <nav>
+            <a href="Firstpage.html">Home</a>
+            <a href="Airdopes.html">Airdopes</a>
+        </nav>
+    </header>
+
+    <h2 class="section-title">🛒 My Shopping Cart</h2>
+
+    <div class="cart-container" id="cart-container"></div>
+
+    <h3 class="total-price">Total: ₹<span id="total-price">0</span></h3>
+
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+
+    <script src="cart.js"></script>
+    <script>loadCartItems();</script>
+
+    <footer>
+        <p>©️ 2025 <strong>QUICK BAZAAR</strong>. All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>

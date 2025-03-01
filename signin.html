@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Bazaar - Sign In</title>
+    <link rel="stylesheet" href="signinCss.css">
+</head>
+<body>
+
+    <div id="box">
+        <h3>Sign In</h3>
+        <form id="signin-form">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                <span id="username-error" class="error-message"></span>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <span id="email-error" class="error-message"></span>
+            </div>
+
+            <div class="input-group">
+                <label for="number">Mobile Number</label>
+                <input type="text" id="number" name="number" placeholder="Enter your mobile number" required>
+                <span id="number-error" class="error-message"></span>
+            </div>
+
+            <div class="input-group password-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                <span id="password-error" class="error-message"></span>
+            </div>
+
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="remember-me"> Remember Me
+                </label>
+            </div>
+
+            <button type="button" id="submitBtn" onclick="validateAndSubmit()" disabled>Submit</button>
+
+            <div class="links">
+                <a href="Forgotpassword.html">Forgot Password?</a> | 
+                <a href="CreateAccount.html">Create an Account</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const usernameInput = document.getElementById("username");
+        const emailInput = document.getElementById("email");
+        const numberInput = document.getElementById("number");
+        const passwordInput = document.getElementById("password");
+        const submitBtn = document.getElementById("submitBtn");
+
+        function togglePassword() {
+            passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+        }
+
+        function validateUsername() {
+            const username = usernameInput.value.trim();
+            const usernameError = document.getElementById("username-error");
+            const usernamePattern = /^[a-zA-Z0-9_]{3,}$/;
+
+            if (!usernamePattern.test(username)) {
+                usernameError.textContent = "Username must be at least 3 characters (only letters, numbers, and _ allowed)";
+                return false;
+            } else {
+                usernameError.textContent = "";
+                return true;
+            }
+        }
+
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailError = document.getElementById("email-error");
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!emailPattern.test(email)) {
+                emailError.textContent = "Invalid email format!";
+                return false;
+            } else {
+                emailError.textContent = "";
+                return true;
+            }
+        }
+
+        function validateNumber() {
+            const number = numberInput.value.trim();
+            const numberError = document.getElementById("number-error");
+            const numberPattern = /^[0-9]{10}$/;
+
+            if (!numberPattern.test(number)) {
+                numberError.textContent = "Mobile number must be exactly 10 digits!";
+                return false;
+            } else {
+                numberError.textContent = "";
+                return true;
+            }
+        }
+
+        function validatePassword() {
+            const password = passwordInput.value;
+            const passwordError = document.getElementById("password-error");
+            const strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (!strongPasswordPattern.test(password)) {
+                passwordError.textContent = "Password must be 8+ chars, include uppercase, lowercase, number & special character!";
+                return false;
+            } else {
+                passwordError.textContent = "";
+                return true;
+            }
+        }
+
+        function checkFormValidity() {
+            if (validateUsername() && validateEmail() && validateNumber() && validatePassword()) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        function validateAndSubmit() {
+            if (validateUsername() && validateEmail() && validateNumber() && validatePassword()) {
+                alert("Sign-In Successful!");
+                window.location.href = "Firstpage.html";
+            }
+        }
+
+        usernameInput.addEventListener("input", checkFormValidity);
+        emailInput.addEventListener("input", checkFormValidity);
+        numberInput.addEventListener("input", checkFormValidity);
+        passwordInput.addEventListener("input", checkFormValidity);
+
+    </script>
+
+</body>
+</html>

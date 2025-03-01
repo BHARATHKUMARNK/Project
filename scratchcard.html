@@ -1,0 +1,225 @@
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratch & Win</title>
+    <!-- Link to Google Fonts for Poppins font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Poppins font to the entire page */
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #F4F4F9;
+            margin: 0;
+            user-select: none; /* Prevent text selection */
+        }
+
+        .scratch-card {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(145deg, #4c67af, #3b5998);
+            color: #FFF;
+            padding: 20px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .prize {
+            display: none;
+            font-size: 30px;
+            font-weight: bold;
+            color: green;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s;
+        }
+
+        .popup-content {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            animation: popup 0.5s ease;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .popup-content h2 {
+            color: #333;
+        }
+
+        .popup-content .prize-amount {
+            font-size: 2em;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .trophy {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes popup {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scratch-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1077/1077990.png" alt="Gift Box" style="width: 80px; margin-bottom: 10px; animation: bounce 1.5s infinite;">
+        <span style="font-size: 1.2em; font-weight: bold;">Scratch & Win</span>
+        <span id="prizeText" style="font-size: 0.9em; color: #d3d3d3;">Earn up to ₹10</span> <!-- Text that disappears -->
+        <span id="prize" style="display: none; font-size: 1.2em; font-weight: bold;"></span> <!-- Text that will display after scratch -->
+        <canvas id="scratchCanvas"></canvas>
+    </div>
+    <div class="popup" id="winPopup">
+        <div class="popup-content">
+            <img src="https://cdn-icons-png.flaticon.com/512/4103/4103044.png" alt="Trophy" class="trophy">
+            <h2>You've won</h2>
+            <span class="prize-amount">₹ <span id="popupPrize">0</span></span>
+            <p>Excellent!</p>
+        </div>
+    </div>
+
+    <script>
+        const prize = Math.floor(Math.random() * 6) + 5; // Random prize between ₹5 - ₹10
+        const prizeTextElement = document.getElementById('prizeText');
+        const prizeElement = document.getElementById('prize');
+        const canvas = document.getElementById('scratchCanvas');
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width = canvas.offsetWidth;
+        const height = canvas.height = canvas.offsetHeight;
+
+        // Fill the canvas with a scratchable layer (gray)
+        ctx.fillStyle = 'transparent';
+        ctx.fillRect(0, 0, width, height);
+
+        let isDrawing = false;
+        let scratchedPercentage = 0;
+
+        // Mouse events
+        canvas.addEventListener('mousedown', () => isDrawing = true);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseleave', () => isDrawing = false);
+        canvas.addEventListener('mousemove', scratch);
+
+        // Touch events
+        canvas.addEventListener('touchstart', (e) => {
+            isDrawing = true;
+            e.preventDefault();
+        });
+        canvas.addEventListener('touchend', () => isDrawing = false);
+        canvas.addEventListener('touchmove', (e) => {
+            if (!isDrawing) return;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            scratch({ offsetX: touch.clientX - rect.left, offsetY: touch.clientY - rect.top });
+            e.preventDefault();
+        });
+
+        function scratch(e) {
+            if (!isDrawing) return;
+            ctx.globalCompositeOperation = 'source-over'; // Draw over existing pixels
+            ctx.fillStyle = 'white'; // Scratch color
+            ctx.beginPath();
+            ctx.arc(e.offsetX, e.offsetY, 15, 0, Math.PI * 2);
+            ctx.fill();
+            checkScratchCompletion();
+        }
+
+        function checkScratchCompletion() {
+            const imageData = ctx.getImageData(0, 0, width, height);
+            let whitePixels = 0;
+
+            for (let i = 5; i < imageData.data.length; i += 4) {
+                if (imageData.data[i] === 255 && imageData.data[i + 1] === 255 && imageData.data[i + 2] === 255) {
+                    whitePixels++;
+                }
+            }
+
+            scratchedPercentage = (whitePixels / (width * height)) * 100;
+
+            if (scratchedPercentage >= 30) { // Reveal prize after 30% scratched
+                revealPrize();
+            }
+        }
+
+        function revealPrize() {
+            // Hide the "Earn up to ₹10" text and show the prize amount
+            prizeTextElement.style.display = 'none';
+            prizeElement.style.display = 'block';
+            prizeElement.innerText = You win: ₹${prize}; // Format: "You win: ₹(winning amount)"
+
+            canvas.style.transition = 'opacity 0.5s';
+            canvas.style.opacity = '0';
+
+            setTimeout(() => {
+                canvas.style.display = 'none';
+
+                // Show the popup
+                const popup = document.getElementById('winPopup');
+                popup.style.visibility = 'visible';
+                popup.style.opacity = '1';
+
+                // Set the prize value in the popup
+                document.getElementById('popupPrize').innerText = prize;
+
+                // Close popup when clicking outside
+                popup.addEventListener('click', closePopup);
+            }, 500);
+        }
+
+        function closePopup(event) {
+            const popup = document.getElementById('winPopup');
+            const popupContent = document.querySelector('.popup-content');
+
+            // Check if the click was outside the popup content
+            if (!popupContent.contains(event.target)) {
+                popup.style.visibility = 'hidden';
+                popup.style.opacity = '0';
+                // The card should stay in the winning state, no need to reset it
+            }
+        }
+
+    </script>
+</body>
+</html>

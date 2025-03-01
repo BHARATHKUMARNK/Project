@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airdopes - Quick Bazaar</title>
+    <link rel="stylesheet" href="Airdopesstyle.css">
+</head>
+<body>
+    <header>
+        <h1>Quick Bazaar</h1>
+        <nav>
+            <a href="Firstpage.html">Home</a>
+            <a href="Cart.html">Cart</a>
+        </nav>
+    </header>
+
+    <h2>Airdopes Collection</h2>
+
+    <label for="price-filter">Filter by Price:</label>
+    <select id="price-filter" onchange="filterProducts()">
+        <option value="all">All Prices</option>
+        <option value="0-600">Below ₹600</option>
+        <option value="600-800">₹600 - ₹800</option>
+        <option value="800-1000">₹800 - ₹1000</option>
+    </select>
+
+    <section class="product-list" id="product-list">
+        <div class="product" data-price="599">
+            <img src="115.png" alt="Airdopes 115">
+            <h3>Boat Airdopes 115</h3>
+            <p>₹599 | Compact & Lightweight</p>
+            <button onclick="addToCart('Airdopes 115', 599, '115.png')">Add to Cart</button>
+        </div>
+        <div class="product" data-price="777">
+            <img src="121.jpg" alt="Airdopes 121">
+            <h3>Boat Airdopes 121</h3>
+            <p>₹777 | Deep Bass & HD Sound</p>
+            <button onclick="addToCart('Airdopes 121', 777, '121.jpg')">Add to Cart</button>
+        </div>
+        <div class="product" data-price="999">
+            <img src="131.jpg" alt="Airdopes 131">
+            <h3>Boat Airdopes 131</h3>
+            <p>₹999 | Bluetooth 5.0 & Quick Pairing</p>
+            <button onclick="addToCart('Airdopes 131', 999, '131.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-price="1999">
+            <img src="201.jpg" alt="Airdopes 201">
+            <h3>Boat Airdopes 201</h3>
+            <p>₹1999 | Bluetooth 5.0 & Quick Pairing</p>
+            <button onclick="addToCart('Airdopes 201', 1999, '201.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-price="777">
+            <img src="191.jpg" alt="Airdopes 191">
+            <h3>Boat Airdopes 191</h3>
+            <p>₹888 | Bluetooth 5.0 & Quick Pairing</p>
+            <button onclick="addToCart('Airdopes 191', 777, '191.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-price="955">
+            <img src="161.jpg" alt="Airdopes 161">
+            <h3>Boat Airdopes 161</h3>
+            <p>₹955 | Bluetooth 5.0 & Quick Pairing</p>
+            <button onclick="addToCart('Airdopes 161', 955, '161.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-price="555">
+            <img src="141.jpg" alt="Airdopes 141">
+            <h3>Boat Airdopes 141</h3>
+            <p>₹1055 | Bluetooth 5.0 & Quick Pairing</p>
+            <button onclick="addToCart('Airdopes 141', 555, '131.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-price="2000">
+            <img src="131.jpg" alt="Airdopes 131">
+            <h3>Boat Airdopes 131</h3>
+            <p>₹999 | Bluetooth 5.0 & Quick Pairing</p>
+            <button onclick="addToCart('Airdopes 131', 2000, '131.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-price="999">
+            <img src="131.jpg" alt="Airdopes 131">
+            <h3>Boat Airdopes 131</h3>
+            <p>₹999 | Bluetooth 5.0 & Quick Pairing</p>
+            <button onclick="addToCart('Airdopes 131', 999, '131.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-price="999">
+            <img src="131.jpg" alt="Airdopes 131">
+            <h3>Boat Airdopes 131</h3>
+            <p>₹999 | Bluetooth 5.0 & Quick Pairing</p>
+            <button onclick="addToCart('Airdopes 131', 999, '131.jpg')">Add to Cart</button>
+        </div>
+
+
+        <div class="product" data-price="999">
+            <img src="131.jpg" alt="Airdopes 131">
+            <h3>Boat Airdopes 131</h3>
+            <p>₹999 | Bluetooth 5.0 & Quick Pairing</p>
+            <button onclick="addToCart('Airdopes 131', 999, '131.jpg')">Add to Cart</button>
+        </div>
+    </section>
+
+    <script src="cart.js"></script>
+    <script>
+        function filterProducts() {
+            let filter = document.getElementById("price-filter").value;
+            let products = document.querySelectorAll(".product");
+
+            products.forEach(product => {
+                let price = parseInt(product.getAttribute("data-price"));
+                
+                if (filter === "all" || 
+                   (filter === "0-600" && price < 600) ||
+                   (filter === "600-800" && price >= 600 && price <= 800) ||
+                   (filter === "800-1000" && price >= 800 && price <= 1000)) {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = "none";
+                }
+            });
+        }
+    </script>
+
+    <footer>
+        <p>©️ 2025 <strong>QUICK BAZAAR</strong>. All Rights Reserved</p>
+    </footer>
+</body>
+</html>

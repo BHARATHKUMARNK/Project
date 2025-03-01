@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin the Wheel</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        .wheel-container { position: relative; display: inline-block; }
+        .wheel { width: 300px; height: 300px; border-radius: 50%; border: 5px solid #333; }
+        .pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 30px; z-index: 10; }
+        #spinBtn { margin-top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Spin the Wheel and Win Offers!</h2>
+    <div class="wheel-container">
+        <img src="Pointer.jpg" class="pointer" id="pointer">
+        <img src="Spin.jpg" class="wheel" id="wheel">
+    </div>
+    <br>
+    <button id="spinBtn">Spin</button>
+    <p id="result"></p>
+
+    <script>
+        const wheel = document.getElementById('wheel');
+        const spinBtn = document.getElementById('spinBtn');
+        const result = document.getElementById('result');
+        const offers = ["10% Off", "20% Off", "Free Shipping", "Buy 1 Get 1", "No Win", "Try Again"];
+
+        spinBtn.addEventListener('click', function() {
+            const randomDegree = Math.floor(3600 + Math.random() * 360);
+            wheel.style.transition = 'transform 4s ease-out';
+            wheel.style.transform = `rotate(${randomDegree}deg)`;
+            setTimeout(() => {
+                const finalDegree = randomDegree % 360;
+                const index = Math.floor(finalDegree / 30);
+                result.textContent = `You won: ${offers[index % offers.length]}`;
+            }, 4000);
+        });
+    </script>
+</body>
+</html>

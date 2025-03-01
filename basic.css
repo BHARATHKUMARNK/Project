@@ -1,0 +1,27 @@
+/*
+ #-All elements
+div All divs
+div, p divs and praragraphs
+div > p all p tags and one level deep in div
+div + p p tags immediately after div
+div ~p p tags preceed by div
+.classname all elements with class
+#idname elemnts with :id
+div.classname divs with certain class name
+div#idname div with certain id
+#idname* all elements inside #idname --!>
+
+             BOX MODULE
+
+MArgin-Create sapce around elements
+Border-Style,width color of the border
+Padding-Generate sapces around an elements content and border
+Content-All contents
+
+
+Pixel-Represents pixel
+Points-72 points=1 inch
+Ems-1em=current font size
+Percent-100%
+*/
+

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 Special Offers 🔥</title>
+    <link rel="stylesheet" href="offerstyle.css">
+</head>
+<body>
+
+    <h2 class="section-title">🔥 TODAY'S OFFER 🔥</h2>
+
+    <div class="offers-container" id="offers-container"></div>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modal-img" src="" alt="Product Image">
+            <h2 id="modal-title"></h2>
+            <p id="modal-price"></p>
+            <p id="modal-description"></p>
+            <h3>Reviews:</h3>
+            <ul id="modal-reviews"></ul>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { 
+                name: "Boat Wireless Headphones", 
+                price: "₹1,499", 
+                discount: "20%", 
+                img: "Wirelessheadphones.jpeg",
+                description:"High-quality sound with deep bass and noise cancellation. Perfect for music lovers and long listening sessions.", 
+                reviews: ["Amazing sound! - ★★★★★","Battery lasts long. - ★★★★☆"]  
+            },
+            { 
+                name: "Samsung Smart Watch", 
+                price: "₹2,999", 
+                discount: "30%", 
+                img: "Smart Watch.jpeg",
+                description: "Track your fitness, heart rate, and notifications on the go. A stylish and functional smartwatch for everyday use.", 
+                reviews: ["Great display! - ★★★★★","Easy to use. - ★★★★☆","Worth the price. - ★★★★★"]  
+            },
+            { 
+                name: "Boult Bluetooth Speaker", 
+                price: "₹1,999", discount: "15%", 
+                img: "bluetoothspeaker.jpeg", 
+                description: "Crystal-clear sound with powerful bass for music lovers. Portable and perfect for indoor or outdoor use.", 
+                reviews: ["Very loud! - ★★★★★","Good battery life. - ★★★★☆","Compact and portable. - ★★★★★"]
+            },
+            { 
+                name: "Acer Gaming Mouse", 
+                price: "₹899", discount: "25%", 
+                img: "Mouse.jpeg", 
+                description: "Ergonomic design with RGB lighting and fast response.", 
+                reviews: ["Super smooth!", "Buttons feel great.", "Perfect for gaming."]  
+            },
+            { 
+                name: "Super Fan", 
+                price: "₹3,499", 
+                discount: "10%", 
+                img: "fan.jpeg", 
+                description: "Energy-efficient fan with smart controls for your home.", 
+                reviews: ["Very silent.", "Good airflow.", "Modern look."]  
+            },
+            { 
+                name: "Sofa", 
+                price: "₹2,499",
+                discount: "20%", 
+                img: "Sofa.jpeg",
+                description:"A comfortable and stylish sofa made with premium fabric and a sturdy wooden frame. Perfect for living rooms and lounge areas.",
+                reviews:["Super comfortable and looks great in my living room! - ★★★★☆","Quality is decent for the price, but the cushions could be softer.- ★★★☆☆"] 
+            }
+                ,
+            { 
+                name: "Xiomi Mi 12 pro 5G", 
+                price: "₹7,499", 
+                discount: "30%", 
+                img: "Xiomi.jpeg",
+                description:"A high-performance 5G smartphone with a Snapdragon 8 Gen 1 processor, 50MP triple-camera setup, and 120Hz AMOLED display. Ideal for gaming and photography.",
+                reviews:["Amazing camera and super fast performance! - ★★★★★","Battery drains a little fast, but overall a great phone! - ★★★★☆"] 
+            },
+            { 
+                name: "Adidas Shoes", 
+                price: "₹1,499", 
+                discount: "10%", 
+                img: "adidas.jpeg",
+                description:"Lightweight and breathable sports shoes designed for running and casual wear. Features shock-absorbing soles and stylish design.",
+                reviews:["Great grip and very comfortable for jogging! - ★★★★☆","Nice fragrance but a little strong for my taste.- ★★★★☆"] 
+            },
+            { 
+                name: "Fogg Perfumes", 
+                price: "₹320", 
+                discount: "10%", 
+                img: "fogg.jpeg",
+                description:"A long-lasting and refreshing fragrance with a blend of woody and floral notes. Suitable for daily wear.",
+                reviews:["The smell lasts for 6-7 hours. Worth the price!- ★★★★★","Nice fragrance but a little strong for my taste.- ★★★★☆"] 
+            },
+            { 
+                name: "Dell Laptop", 
+                price: "₹23,499", 
+                discount: "30%", 
+                img: "Dell.jpeg",
+                description:"A powerful Intel Core i5 laptop with 8GB RAM and 512GB SSD, perfect for work, study, and gaming. Comes with Windows 11 pre-installed.",
+                reviews:["Great performance for office and personal use!- ★★★★★","Display quality is average, but performance is solid - ★★★★☆"] 
+            },
+            { 
+                name: "N95 Mask", 
+                price: "₹100", 
+                discount: "50%", 
+                img: "Mask.jpeg",
+                description:"5-layer protection mask designed for pollution and virus protection. Comfortable ear loops and breathable fabric.",
+                reviews:["Very comfortable and perfect fit!- ★★★★★","Good for daily use, but straps feel a little loose. - ★★★★☆"] 
+            },
+            { 
+                name: "Vaccum Cleaner", 
+                price: "₹1,799", 
+                discount: "17%", 
+                img: "Cleaner.jpeg",
+                description:" A high-suction power vacuum cleaner for home and office use. Comes with multiple attachments for carpets and floors.",
+                reviews:["Cleans dust and pet hair very well!- ★★★★★","A bit noisy, but works great! - ★★★★☆"] 
+            },
+            { 
+                name: "Milton Flask",
+                price: "₹799", 
+                discount: "20%", 
+                img: "Flask.jpeg",
+                description:"Double-walled stainless steel flask that keeps beverages hot or cold for up to 24 hours. Ideal for travel and daily use.",
+                reviews:["Keeps my tea hot for hours!- ★★★★★","Good quality but a little heavy. - ★★★★☆"] 
+            },
+            { 
+                name: "Acer 39'inch Tv", 
+                price: "₹17,999", 
+                discount: "40%", 
+                img: "Acer.jpeg",
+                description:" A Full HD LED Smart TV with Android OS, Dolby Audio, and multiple connectivity options. Perfect for binge-watching!",
+                reviews:["Crisp picture quality and great sound!- ★★★★★","Smart features are a bit slow, but good for the price. - ★★★★☆"] 
+            },
+            { 
+                name: "American Tourister travel bag", 
+                price: "₹1,799", 
+                discount: "20%", 
+                img: "at.jpeg",
+                description:"A spacious and durable travel bag with multiple compartments, ideal for both short trips and long journeys. Made with high-quality materials for durability and comfort.",
+                reviews:["Spacious and stylish, perfect for travel! - ★★★★☆","Good quality zippers and comfortable to carry. - ★★★★★"] 
+            },
+            { 
+                name: "Samsung's Washing Machine", 
+                price: "₹12,999", 
+                discount: "25%", 
+                img: "WashingMachine.jpg",
+                description:"A high-efficiency fully automatic washing machine with smart inverter technology, multiple wash modes, and a powerful spin cycle. Perfect for hassle-free laundry with energy savings.",
+                reviews:["Cleans clothes really well! - ★★★★★","Quiet operation and low power consumption. - ★★★★☆"] 
+            }
+        ];
+
+        const container = document.getElementById("offers-container");
+        const modal = document.getElementById("productModal");
+        const closeModalBtn = document.querySelector(".close");
+
+        products.forEach(product => {
+            const productCard = document.createElement("div");
+            productCard.classList.add("product-card");
+
+            productCard.innerHTML = `
+                <div class="discount-tag">${product.discount} OFF</div>
+                <img src="${product.img}" alt="${product.name}" onclick="openModal('${product.name}')">
+                <div class="product-info">
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-price">${product.price}</div>
+                    <button class="add-to-cart" onclick="addToCart('${product.name}')">🛒 Add to Cart</button>
+                </div>
+            `;
+
+            container.appendChild(productCard);
+        });
+
+        function addToCart(productName) {
+    let button = event.target;
+    button.innerText = "✔ Added";
+    button.style.background = "#28a745";
+    
+    setTimeout(() => {
+        button.innerText = "🛒 Add to Cart";
+        button.style.background = "linear-gradient(to right, #ff5733, #ff4500)";
+    }, 2000);
+    
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let product = products.find(p => p.name === productName);
+    
+    // Check if product already in cart
+    let existingProduct = cart.find(item => item.name === productName);
+    if (existingProduct) {
+        alert(`${productName} is already in your cart!`);
+        return;
+    }
+    
+    cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    
+    alert(`${productName} added to cart!`);
+}
+    function openModal(productName) {
+    const product = products.find(p => p.name === productName);
+
+    if (!product) return;
+
+    console.log("Opening modal for:", product.name); // Debugging
+    console.log("Image path:", product.img); // Check if path is correct
+
+    document.getElementById("modal-img").src = product.img;
+    document.getElementById("modal-img").alt = product.name;
+    document.getElementById("modal-title").innerText = product.name;
+    document.getElementById("modal-price").innerText = `Price: ${product.price} (${product.discount} OFF)`;
+    document.getElementById("modal-description").innerText = product.description;
+
+    // Update reviews
+    const reviewsList = document.getElementById("modal-reviews");
+    reviewsList.innerHTML = "";
+    product.reviews.forEach(review => {
+        let li = document.createElement("li");
+        li.innerText = review;
+        reviewsList.appendChild(li);
+    });
+
+    // Show modal
+    document.getElementById("productModal").style.display = "flex";
+    
+
+    closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+// ✅ Fix: Close Modal When Clicking Outside Content
+modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+}
+
+    </script>
+
+<footer>
+    <p>©️ 2025 <strong>QUICK BAZAAR</strong>.All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>

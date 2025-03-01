@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <title>E-COMMERCE WEBSITE</title>
+    <link rel="stylesheet"href="design.css">
+    <script>
+      let images = [
+            { src: "offers.png", link: "page1.html" },
+            { src: "tshirts.jpeg", link: "page2.html" },
+            { src: "dailyneeds.jpg", link: "page3.html" }
+        ];
+        
+        let currentIndex = 0;
+        function updateImage() {
+            document.getElementById("image-display").src = images[currentIndex].src;
+            document.getElementById("image-link").href = images[currentIndex].link;
+        }
+
+        function showNextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            updateImage();
+        }
+
+        function showPreviousImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            updateImage();
+        }
+    </script>
+
+  </head>
+  <body>
+
+    <header>
+      <h1>Quick Bazaar</h1>
+      <nav>
+        <!--a href="">Home</a>-->
+        <a href="signin.html">Sign In</a>
+        <a href="offers.html">Today's Offer</a>
+        <a href="">All</a>
+        <a href="">Groceries</a>
+        <a href="">Shoes</a>
+        <a href="">Today's Deal</a>
+        <a href="">Best sellers</a>
+        <a href="Spin.html">Lucky Time</a>
+        <a href="Cart.html">Cart</a>
+      </nav>
+    </header>
+
+    <div class="btn container">
+      <section class="banner">
+        <button class="left-btn"onclick="showPreviousImage()">❮</button>
+        <a id="image" href="Airdopes.html" target="_blank">
+          <img id="image-display" src="offers.png">
+        </a>
+        <button class="right-btn" onclick="showNextImage()">></button>
+      </section>
+    </div>
+
+    <section class="product-list">
+      <div class="product">
+        <img src="airdopes.jpeg" alt="Airdopes">
+        <h2>Airdopes</h2>
+        <p>Starting ₹500|Airdopes</p>
+        <a href="Airdopes.html">View More</a>
+      </div>
+
+
+      <div class="product">
+        <img src="smartPhone.jpeg"alt="smart phones">
+        <h2>Smart Phones</h2>
+        <p>Starting ₹10000|Smart Phones</p>
+        <a href="Phone.html">View More</a>
+      </div>
+
+
+      <div class="product">
+        <img src="HomeAppliances.jpeg"alt="Home Appliances">
+        <h2>Home Appliances</h2>
+        <p>Starting ₹10000|Home Appliances</p>
+        <a href="Appliances.html">View More</a>
+      </div>
+
+      <div class="product">
+        <img src="Groceries.jpeg"alt="Groceries">
+        <h2>Groceries</h2>
+        <p>Home Delivery within 30 Minutes</p>
+        <a href="Groceries.html">Order Now</a>
+      </div>
+
+      <div class="product">
+        <img src="Watches.jpg"alt="watches">
+        <h2>Watches</h2>
+        <p>Starting ₹250|Casio</p>
+        <a href="Watch.html">Order Now</a>
+      </div>
+
+      <div class="product">
+        <img src="Shoes.jpg"alt="Shoes">
+        <h2>Shoes</h2>
+        <p>Starting ₹450|Shoes</p>
+        <a href="Shoes.html">Order Now</a>
+      </div>
+
+      <div class="product">
+        <img src="Lights.jpg"alt="Lights">
+        <h2>Lightings</h2>
+        <p>Starting ₹250</p>
+        <a href="Lights.html">Order Now</a>
+      </div>
+      
+      <div class="product">
+        <img src="Gifts.jpg"alt="Gifts">
+        <h2>Gifts</h2>
+        <p>Starting ₹250|Gifts</p>
+        <a href="Gifets.html">Order Now</a>
+      </div>
+
+      <div class="product">
+        <img src="perfumes.jpeg"alt="perfumes">
+        <h2>perfumes</h2>
+        <p>Starting ₹250|perfumes</p>
+        <a href="Perfumes.html">Order Now</a>
+      </div>
+      <div class="product">
+        <img src="Creams.jpeg"alt="Facial">
+        <h2>Face Mask</h2>
+        <p>Starting ₹350|Face Mask</p>
+        <a href="Masks.html">Order Now</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>©️ 2025 <strong>QUICK BAZAAR</strong>.All Rights Reserved</p>
+    </footer>
+  </body>
+</html>

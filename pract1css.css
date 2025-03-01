@@ -1,0 +1,28 @@
+body
+{
+    background-color: aqua;
+}
+.div
+{
+    background-color: aquamarine; 
+    text-align: center;
+    color: rgb(17, 16, 15);
+}
+#you a:hover
+{
+    color: rgb(200, 186, 186);
+}
+#div2
+{
+    background-color: bisque;
+}
+#div2 table
+{
+    text-align: center;
+    color: rgb(1, 15, 6);
+    font-family: 'Courier New', Courier, monospace;
+}
+#movies
+{
+    background-color: brown;
+}
